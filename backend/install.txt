@@ -1,0 +1,16 @@
+npm i bcrypt cors dotenv express pg express-rate-limit express-validator helmet jsonwebtoken jwt-decode uuid
+npm i -D nodemon
+
+add to package.json:
+{
+  "name": "project4",
+  "version": "1.0.0",
+  "description": "Backend for a PERN stack attendance app",
+  "main": "server.js",
+  "scripts": {
+     "start": "node index.js",
+     "dev": "nodemon index.js",
+  "start": "node server",
+  "dev": "nodemon server"
+  }
+}
