@@ -1,4 +1,0 @@
-copy over a starter-code folder
-
-npm i
-npm i bcrypt jsonwebtoken jwt-decode react-router-dom uuid
