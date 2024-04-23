@@ -1,7 +1,7 @@
 // models/Company.js
 
 module.exports = (sequelize, DataTypes) => {
-  const Company = sequelize.define("Company", {
+  const Companies = sequelize.define("Companies", {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -14,17 +14,5 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
 
-  return Company;
+  return Companies;
 };
-
-// const { DataTypes } = require("sequelize");
-// const sequelize = require("../db/db");
-
-// const Company = sequelize.define("Company", {
-//   name: {
-//     type: DataTypes.STRING,
-//     allowNull: false,
-//   },
-// });
-
-// module.exports = Company;
