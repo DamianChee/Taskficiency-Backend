@@ -1,4 +1,4 @@
-npm i bcrypt cors dotenv express pg express-rate-limit express-validator helmet jsonwebtoken jwt-decode uuid
+npm i bcrypt cors dotenv express pg express-rate-limit express-validator helmet jsonwebtoken jwt-decode uuid sequelize
 npm i -D nodemon
 
 add to package.json:
