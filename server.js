@@ -1,11 +1,10 @@
 require("dotenv").config();
 
 const express = require("express");
-connectDB = require("./src/db/db");
+const connectDB = require("./src/db/db");
 const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
-const { Sequelize } = require("sequelize");
 
 const limiter = rateLimit({
   windowMs: 1000,
@@ -23,7 +22,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const PORT = process.env.PORT || 5001;
-connectDB(app, PORT);
+connectDB();
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
 /**
 
