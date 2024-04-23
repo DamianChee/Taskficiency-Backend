@@ -1,40 +1,15 @@
 const { Client } = require("pg");
 
-const Sequelize = require("sequelize");
-const config = require("../../config.json");
-const env = process.env.NODE_ENV || "development";
-const dbConfig = config[env];
+const { sequelize, Company } = require("./Index");
 
-const connectDB = async (app, PORT) => {
+const connectDB = async () => {
   try {
-    const sequelize = new Sequelize(
-      dbConfig.database,
-      dbConfig.username,
-      dbConfig.password,
-      {
-        host: dbConfig.host,
-        dialect: dbConfig.dialect,
-        port: dbConfig.port,
-        pool: {
-          max: 5,
-          min: 0,
-          acquire: 30000,
-          idle: 10000,
-        },
-      }
-    );
-
     await sequelize.authenticate();
-    console.log(
-      `${dbConfig.database} connected at ${dbConfig.host} Port: ${dbConfig.port}`
-    );
+    console.log(`Database Connected`);
 
-    await sequelize.sync({ force: false }); // Use force: true with caution in production
+    // Turned off logging because it was annoying me
+    await sequelize.sync({ force: true, logging: false });
     console.log("Database & tables created!");
-
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
   } catch (error) {
     console.error(error.message);
     process.exit(1);
