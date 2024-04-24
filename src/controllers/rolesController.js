@@ -40,7 +40,7 @@ const getAllRoles = async (req, res) => {
 // Get role by id (primary key)
 const getRoleById = async (req, res) => {
   try {
-    const role = await Roles.findByPk(req.params.id);
+    const role = await Roles.findByPk(req.body.id);
     if (res.ok && role) {
       res.status(200).json({ status: "ok", msg: "role found", data: role });
     } else if (res.ok) {
@@ -60,7 +60,7 @@ const getRoleByName = async (req, res) => {
   try {
     const role = await Roles.findOne({
       where: {
-        name: req.params.name,
+        name: req.body.name,
       },
     });
     if (res.ok && role) {
@@ -82,7 +82,7 @@ const updateRole = async (req, res) => {
   try {
     const role = await Roles.update(req.body, {
       where: {
-        id: req.params.id,
+        id: req.body.id,
       },
     });
 
@@ -105,7 +105,7 @@ const deleteRole = async (req, res) => {
   try {
     const role = await Roles.destroy({
       where: {
-        id: req.params.id,
+        id: req.body.id,
       },
     });
     if (res.ok && role) {

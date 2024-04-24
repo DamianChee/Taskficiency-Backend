@@ -41,7 +41,7 @@ const getAllUsersByCompany = async (req, res) => {
   try {
     const users = await Users.findAll({
       where: {
-        company_id: req.params.id,
+        company_id: req.body.company_id,
       },
     });
 
@@ -62,7 +62,7 @@ const getAllUsersByCompany = async (req, res) => {
 // Get user by id (primary key)
 const getUserById = async (req, res) => {
   try {
-    const user = await Users.findByPk(req.params.id);
+    const user = await Users.findByPk(req.body.id);
     if (res.ok && user) {
       res.status(200).json({ status: "ok", msg: "user found", data: user });
     } else if (res.ok) {
@@ -82,8 +82,8 @@ const getUserByCompany = async (req, res) => {
   try {
     const users = await Users.findAll({
       where: {
-        name: req.params.name,
-        company_id: req.params.name,
+        name: req.body.name,
+        company_id: req.body.name,
       },
     });
     if (res.ok && users) {
@@ -105,7 +105,7 @@ const updateUser = async (req, res) => {
   try {
     const user = await Users.update(req.body, {
       where: {
-        id: req.params.id,
+        id: req.body.id,
       },
     });
 
@@ -128,7 +128,7 @@ const deleteUser = async (req, res) => {
   try {
     const user = await Users.destroy({
       where: {
-        id: req.params.id,
+        id: req.body.id,
       },
     });
     if (res.ok && user) {

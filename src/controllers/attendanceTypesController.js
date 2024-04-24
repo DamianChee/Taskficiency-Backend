@@ -40,7 +40,7 @@ const getAllAttendanceTypes = async (req, res) => {
 // Get attendance type by id (primary key)
 const getAttendanceTypesById = async (req, res) => {
   try {
-    const type = await AttendanceTypes.findByPk(req.params.id);
+    const type = await AttendanceTypes.findByPk(req.body.id);
     if (res.ok && type) {
       res.status(200).json({ status: "ok", msg: "type found", data: type });
     } else if (res.ok) {
@@ -60,7 +60,7 @@ const getAttendanceTypeByName = async (req, res) => {
   try {
     const type = await AttendanceTypes.findOne({
       where: {
-        name: req.params.name,
+        name: req.body.name,
       },
     });
     if (res.ok && type) {
@@ -82,7 +82,7 @@ const updateAttendanceType = async (req, res) => {
   try {
     const type = await AttendanceTypes.update(req.body, {
       where: {
-        id: req.params.id,
+        id: req.body.id,
       },
     });
 
@@ -105,7 +105,7 @@ const deleteAttendanceType = async (req, res) => {
   try {
     const type = await AttendanceTypes.destroy({
       where: {
-        id: req.params.id,
+        id: req.body.id,
       },
     });
     if (res.ok && type) {
