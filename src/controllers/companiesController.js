@@ -1,4 +1,4 @@
-// controllers/companyController.js
+// controllers/companiesController.js
 const Companies = require("../models/Companies");
 
 // Create a new company

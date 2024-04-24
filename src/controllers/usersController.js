@@ -1,4 +1,4 @@
-// controllers/companyController.js
+// controllers/usersController.js
 const Users = require("../models/Users");
 
 // Create a new user
