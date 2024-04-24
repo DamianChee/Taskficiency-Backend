@@ -28,6 +28,13 @@ module.exports = (sequelize, DataTypes) => {
         key: "id",
       },
     },
+    company_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Companies", // This is a reference to another model
+        key: "id",
+      },
+    },
   });
 
   return Teams;
