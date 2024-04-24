@@ -17,17 +17,17 @@ const sequelize = new Sequelize(
 );
 
 // Constraint tables
-const AttendanceType = require("../models/AttendanceType")(
+const AttendanceType = require("../models/AttendanceTypes")(
   sequelize,
   Sequelize.DataTypes
 );
-const Role = require("../models/Role")(sequelize, Sequelize.DataTypes);
+const Role = require("../models/Roles")(sequelize, Sequelize.DataTypes);
 
 // Following Table hierarchy Company -> User -> Team & Attendance
-const Company = require("../models/Company")(sequelize, Sequelize.DataTypes);
+const Company = require("../models/Companies")(sequelize, Sequelize.DataTypes);
 const User = require("../models/Users")(sequelize, Sequelize.DataTypes);
-const Team = require("../models/Team")(sequelize, Sequelize.DataTypes);
-const Attendance = require("../models/Attendance")(
+const Team = require("../models/Teams")(sequelize, Sequelize.DataTypes);
+const Attendance = require("../models/Attendances")(
   sequelize,
   Sequelize.DataTypes
 );
