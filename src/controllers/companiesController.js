@@ -84,7 +84,7 @@ const getCompanyByName = async (req, res) => {
 // Update company by id
 const updateCompany = async (req, res) => {
   try {
-    const company = await Company.update(req.body, {
+    const company = await Companies.update(req.body, {
       where: {
         id: req.params.id,
       },
@@ -109,7 +109,7 @@ const updateCompany = async (req, res) => {
 // Delete company by id
 const deleteCompany = async (req, res) => {
   try {
-    const company = await Company.destroy({
+    const company = await Companies.destroy({
       where: {
         id: req.params.id,
       },
