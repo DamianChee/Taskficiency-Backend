@@ -40,7 +40,7 @@ const getAllCompanies = async (req, res) => {
 // Get company by id (primary key)
 const getCompanyById = async (req, res) => {
   try {
-    const company = await Companies.findByPk(req.params.id);
+    const company = await Companies.findByPk(req.body.id);
     if (res.ok && company) {
       res
         .status(200)
@@ -62,7 +62,7 @@ const getCompanyByName = async (req, res) => {
   try {
     const company = await Companies.findOne({
       where: {
-        name: req.params.name,
+        name: req.body.name,
       },
     });
     if (res.ok && company) {
@@ -86,7 +86,7 @@ const updateCompany = async (req, res) => {
   try {
     const company = await Companies.update(req.body, {
       where: {
-        id: req.params.id,
+        id: req.body.id,
       },
     });
 
@@ -111,7 +111,7 @@ const deleteCompany = async (req, res) => {
   try {
     const company = await Companies.destroy({
       where: {
-        id: req.params.id,
+        id: req.body.id,
       },
     });
     if (res.ok && company) {
