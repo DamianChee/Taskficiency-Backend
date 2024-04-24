@@ -122,4 +122,11 @@ const deleteRole = async (req, res) => {
   }
 };
 
-module.exports = {};
+module.exports = {
+  createRole,
+  getAllRoles,
+  getRoleById,
+  getRoleByName,
+  updateRole,
+  deleteRole,
+};
