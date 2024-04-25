@@ -24,7 +24,14 @@ module.exports = (sequelize, DataTypes) => {
     clock_in: {
       type: DataTypes.TIME,
       allowNull: true,
-      defaultValue: DataTypes.NOW,
+      defaultValue: () => {
+        const now = new Date();
+        // Format the time part of the Date object as a string in the format 'HH:MM:SS'
+        return `${now.getHours().toString().padStart(2, "0")}:${now
+          .getMinutes()
+          .toString()
+          .padStart(2, "0")}:${now.getSeconds().toString().padStart(2, "0")}`;
+      },
     },
     clock_out: {
       type: DataTypes.TIME,
