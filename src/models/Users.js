@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     company_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       references: {
         model: "Companies", // This is a reference to another model
         key: "id",
@@ -45,6 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     role_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "Roles", // This is a reference to another model
         key: "id",

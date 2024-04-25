@@ -1,15 +1,36 @@
 // controllers/attendanceTypeController.js
-const AttendanceTypes = require("../models/AttendanceTypes");
+const { AttendanceTypes } = require("../db/Index");
+
+// Seed attendance types
+const seedAttendanceTypes = async (req, res) => {
+  try {
+    const attendanceTypes = await AttendanceTypes.bulkCreate([
+      { type: "Full" },
+      { type: "Half AM" },
+      { type: "Half PM" },
+      { type: "OT" },
+    ]);
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "seed completed", data: attendanceTypes });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in seeding attendance type",
+      data: error.message,
+    });
+  }
+};
 
 // Create a new attendance type
 const createAttendanceType = async (req, res) => {
   try {
     const newType = await AttendanceTypes.create(req.body);
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendance type created", data: newType });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendance type created", data: newType });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -23,11 +44,10 @@ const createAttendanceType = async (req, res) => {
 const getAllAttendanceTypes = async (req, res) => {
   try {
     const types = await AttendanceTypes.findAll({});
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendance types returned", data: types });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendance types returned", data: types });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -41,11 +61,8 @@ const getAllAttendanceTypes = async (req, res) => {
 const getAttendanceTypesById = async (req, res) => {
   try {
     const type = await AttendanceTypes.findByPk(req.body.id);
-    if (res.ok && type) {
-      res.status(200).json({ status: "ok", msg: "type found", data: type });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "type not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "type found", data: type });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -56,18 +73,15 @@ const getAttendanceTypesById = async (req, res) => {
 };
 
 // Get attendance type by name
-const getAttendanceTypeByName = async (req, res) => {
+const getAttendanceTypeByType = async (req, res) => {
   try {
     const type = await AttendanceTypes.findOne({
       where: {
-        name: req.body.name,
+        type: req.body.type,
       },
     });
-    if (res.ok && type) {
-      res.status(200).json({ status: "ok", msg: "type found", data: type });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "type not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "type found", data: type });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -86,11 +100,7 @@ const updateAttendanceType = async (req, res) => {
       },
     });
 
-    if (res.ok && type) {
-      res.status(200).json({ status: "ok", msg: "type updated", data: type });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "type not found" });
-    }
+    res.status(200).json({ status: "ok", msg: "type updated", data: type });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -108,11 +118,8 @@ const deleteAttendanceType = async (req, res) => {
         id: req.body.id,
       },
     });
-    if (res.ok && type) {
-      res.status(200).json({ status: "ok", msg: "type deleted", data: type });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "type not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "type deleted", data: type });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -123,10 +130,11 @@ const deleteAttendanceType = async (req, res) => {
 };
 
 module.exports = {
+  seedAttendanceTypes,
   createAttendanceType,
   getAllAttendanceTypes,
   getAttendanceTypesById,
-  getAttendanceTypeByName,
+  getAttendanceTypeByType,
   updateAttendanceType,
   deleteAttendanceType,
 };

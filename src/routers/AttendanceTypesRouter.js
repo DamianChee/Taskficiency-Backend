@@ -3,17 +3,19 @@ const {
   createAttendanceType,
   getAllAttendanceTypes,
   getAttendanceTypesById,
-  getAttendanceTypeByName,
+  getAttendanceTypeByType,
   updateAttendanceType,
   deleteAttendanceType,
+  seedAttendanceTypes,
 } = require("../controllers/attendanceTypesController");
 const router = express.Router();
 
-router.put("/attendancetype/create", createAttendanceType);
-router.get("/attendancetype/all", getAllAttendanceTypes);
-router.post("/attendancetype/id", getAttendanceTypesById);
-router.post("/attendancetype/name", getAttendanceTypeByName);
-router.patch("/attendancetype/id", updateAttendanceType);
-router.delete("/attendancetype/id", deleteAttendanceType);
+router.get("/attendancetypes/seed", seedAttendanceTypes);
+router.put("/attendancetypes/create", createAttendanceType);
+router.get("/attendancetypes/all", getAllAttendanceTypes);
+router.post("/attendancetypes/id", getAttendanceTypesById);
+router.post("/attendancetypes/type", getAttendanceTypeByType);
+router.patch("/attendancetypes/id", updateAttendanceType);
+router.delete("/attendancetypes/id", deleteAttendanceType);
 
 module.exports = router;

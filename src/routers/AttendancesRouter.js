@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  seedAttendance,
   createAttendance,
   getAllAttendance,
   getAllAttendancesByCompany,
@@ -11,15 +12,15 @@ const {
 } = require("../controllers/AttendancesController");
 const router = express.Router();
 
-// router.get("/attendances/seed");
+router.get("/attendances/seed", seedAttendance);
 router.post("/attendances/create", createAttendance);
 router.get("/attendances/all", getAllAttendance);
-router.put("/attendance/all/company", getAllAttendancesByCompany);
-router.put("/attendance/all/companydate", getAllAttendancesByCompanyDate);
-router.put("/attendance/all/usercompany", getAllAttendancesByUserIdCompany);
-router.put("/attendance/id", getAttendanceById);
-router.put("/attendance/userdate", getAttendanceById);
-router.patch("/attendance/id", updateAttendance);
-router.delete("/attendance/id", deleteAttendance);
+router.put("/attendances/all/company", getAllAttendancesByCompany);
+router.put("/attendances/all/companydate", getAllAttendancesByCompanyDate);
+router.put("/attendances/all/usercompany", getAllAttendancesByUserIdCompany);
+router.put("/attendances/id", getAttendanceById);
+router.put("/attendances/userdate", getAttendanceById);
+router.patch("/attendances/id", updateAttendance);
+router.delete("/attendances/id", deleteAttendance);
 
 module.exports = router;

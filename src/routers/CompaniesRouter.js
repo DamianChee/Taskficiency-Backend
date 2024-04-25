@@ -6,9 +6,11 @@ const {
   getCompanyByName,
   updateCompany,
   deleteCompany,
+  seedCompanies,
 } = require("../controllers/companiesController");
 const router = express.Router();
 
+router.get("/companies/seed", seedCompanies);
 router.put("/companies/create", createCompany);
 router.get("/companies/all", getAllCompanies);
 router.post("/companies/id", getCompanyById);

@@ -9,20 +9,25 @@ module.exports = (sequelize, DataTypes) => {
       autoIncrement: true,
     },
     date: {
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
-    OT_hours: {
-      type: DataTypes.INTEGER,
+    OT_clock_in: {
+      type: DataTypes.TIME,
       allowNull: true,
-      defaultValue: 0,
+    },
+    OT_clock_out: {
+      type: DataTypes.TIME,
+      allowNull: true,
     },
     clock_in: {
-      type: DataTypes.DATE,
-      allowNull: true,
+      type: DataTypes.TIME,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     clock_out: {
-      type: DataTypes.DATE,
+      type: DataTypes.TIME,
       allowNull: true,
     },
     user_id: {

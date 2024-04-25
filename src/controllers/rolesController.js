@@ -1,15 +1,34 @@
 // controllers/rolesController.js
-const Roles = require("../models/Roles");
+const { Roles } = require("../db/Index");
+
+// Seed roles
+const seedRoles = async (req, res) => {
+  try {
+    const roles = await Roles.bulkCreate([
+      { name: "admin", permission_level: 0 },
+      { name: "boss", permission_level: 1 },
+      { name: "manager", permission_level: 2 },
+      { name: "team lead", permission_level: 3 },
+      { name: "employee", permission_level: 4 },
+      { name: "part-time", permission_level: 5 },
+    ]);
+
+    res.status(200).json({ status: "ok", msg: "seed successful", data: roles });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in creating role",
+      data: error.message,
+    });
+  }
+};
 
 // Create a new role
 const createRole = async (req, res) => {
   try {
     const newRole = await Roles.create(req.body);
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "role created", data: newRole });
-    }
+
+    res.status(200).json({ status: "ok", msg: "role created", data: newRole });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -23,11 +42,8 @@ const createRole = async (req, res) => {
 const getAllRoles = async (req, res) => {
   try {
     const roles = await Roles.findAll({});
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "roles returned", data: roles });
-    }
+
+    res.status(200).json({ status: "ok", msg: "roles returned", data: roles });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -41,11 +57,8 @@ const getAllRoles = async (req, res) => {
 const getRoleById = async (req, res) => {
   try {
     const role = await Roles.findByPk(req.body.id);
-    if (res.ok && role) {
-      res.status(200).json({ status: "ok", msg: "role found", data: role });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "role not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "role found", data: role });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -63,11 +76,8 @@ const getRoleByName = async (req, res) => {
         name: req.body.name,
       },
     });
-    if (res.ok && role) {
-      res.status(200).json({ status: "ok", msg: "role found", data: role });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "role not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "role found", data: role });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -86,11 +96,7 @@ const updateRole = async (req, res) => {
       },
     });
 
-    if (res.ok && role) {
-      res.status(200).json({ status: "ok", msg: "role updated", data: role });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "role not found" });
-    }
+    res.status(200).json({ status: "ok", msg: "role updated", data: role });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -108,11 +114,8 @@ const deleteRole = async (req, res) => {
         id: req.body.id,
       },
     });
-    if (res.ok && role) {
-      res.status(200).json({ status: "ok", msg: "role deleted", data: role });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "role not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "role deleted", data: role });
   } catch (error) {
     res.status(500).json({
       status: "error",

@@ -1,15 +1,36 @@
 // controllers/companiesController.js
-const Companies = require("../models/Companies");
+const { Companies } = require("../db/Index");
+
+// Seed companies
+const seedCompanies = async (req, res) => {
+  try {
+    const companies = await Companies.bulkCreate([
+      { name: "JAG Tech" },
+      { name: "McDonalds" },
+      { name: "Singtel" },
+      { name: "Meta" },
+    ]);
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "seed completed", data: companies });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in seeding attendance type",
+      data: error.message,
+    });
+  }
+};
 
 // Create a new company
 const createCompany = async (req, res) => {
   try {
     const newCompany = await Companies.create(req.body);
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "company created", data: newCompany });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "company created", data: newCompany });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -23,11 +44,10 @@ const createCompany = async (req, res) => {
 const getAllCompanies = async (req, res) => {
   try {
     const companies = await Companies.findAll({});
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "companies returned", data: companies });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "companies returned", data: companies });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -41,13 +61,8 @@ const getAllCompanies = async (req, res) => {
 const getCompanyById = async (req, res) => {
   try {
     const company = await Companies.findByPk(req.body.id);
-    if (res.ok && company) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "company found", data: company });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "company not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "company found", data: company });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -65,13 +80,8 @@ const getCompanyByName = async (req, res) => {
         name: req.body.name,
       },
     });
-    if (res.ok && company) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "company found", data: company });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "company not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "company found", data: company });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -90,13 +100,9 @@ const updateCompany = async (req, res) => {
       },
     });
 
-    if (res.ok && company) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "company updated", data: company });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "Company not found" });
-    }
+    res
+      .status(200)
+      .json({ status: "ok", msg: "company updated", data: company });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -114,13 +120,10 @@ const deleteCompany = async (req, res) => {
         id: req.body.id,
       },
     });
-    if (res.ok && company) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "company deleted", data: company });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "company not found" });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "company deleted", data: company });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -131,6 +134,7 @@ const deleteCompany = async (req, res) => {
 };
 
 module.exports = {
+  seedCompanies,
   createCompany,
   getAllCompanies,
   getCompanyById,

@@ -7,9 +7,11 @@ const {
   getUserByCompany,
   updateUser,
   deleteUser,
+  seedUsers,
 } = require("../controllers/usersController");
 const router = express.Router();
 
+router.get("/users/seed", seedUsers);
 router.put("/users/create", createUser);
 router.get("/users/all", getAllUsers);
 router.post("/users/all/company", getAllUsersByCompany);

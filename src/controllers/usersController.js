@@ -1,15 +1,42 @@
 // controllers/usersController.js
-const Users = require("../models/Users");
+const { Users } = require("../db/Index");
+
+// Seed users
+const seedUsers = async (req, res) => {
+  try {
+    const users = await Users.bulkCreate([
+      { name: "Danza", username: "danza", password: "password", company_id: 1 },
+      {
+        name: "Albert",
+        username: "albert",
+        password: "password",
+        company_id: 1,
+      },
+      { name: "Bryan", username: "bryan", password: "password", company_id: 1 },
+      {
+        name: "Damian",
+        username: "damian",
+        password: "password",
+        company_id: 1,
+      },
+    ]);
+
+    res.status(200).json({ status: "ok", msg: "seed completed", data: users });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in seeding attendance type",
+      data: error.message,
+    });
+  }
+};
 
 // Create a new user
 const createUser = async (req, res) => {
   try {
     const newUser = await Users.create(req.body);
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "user created", data: newUser });
-    }
+
+    res.status(200).json({ status: "ok", msg: "user created", data: newUser });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -23,11 +50,8 @@ const createUser = async (req, res) => {
 const getAllUsers = async (req, res) => {
   try {
     const users = await Users.findAll({});
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "users returned", data: users });
-    }
+
+    res.status(200).json({ status: "ok", msg: "users returned", data: users });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -45,11 +69,7 @@ const getAllUsersByCompany = async (req, res) => {
       },
     });
 
-    if (res.ok && users) {
-      res.status(200).json({ status: "ok", msg: "users found", data: users });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "users not found" });
-    }
+    res.status(200).json({ status: "ok", msg: "users found", data: users });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -63,11 +83,8 @@ const getAllUsersByCompany = async (req, res) => {
 const getUserById = async (req, res) => {
   try {
     const user = await Users.findByPk(req.body.id);
-    if (res.ok && user) {
-      res.status(200).json({ status: "ok", msg: "user found", data: user });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "user not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "user found", data: user });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -86,11 +103,8 @@ const getUserByCompany = async (req, res) => {
         company_id: req.body.name,
       },
     });
-    if (res.ok && users) {
-      res.status(200).json({ status: "ok", msg: "users found", data: users });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "users not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "users found", data: users });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -109,11 +123,7 @@ const updateUser = async (req, res) => {
       },
     });
 
-    if (res.ok && user) {
-      res.status(200).json({ status: "ok", msg: "user updated", data: user });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "user not found" });
-    }
+    res.status(200).json({ status: "ok", msg: "user updated", data: user });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -131,11 +141,8 @@ const deleteUser = async (req, res) => {
         id: req.body.id,
       },
     });
-    if (res.ok && user) {
-      res.status(200).json({ status: "ok", msg: "user deleted", data: user });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "user not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "user deleted", data: user });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -146,6 +153,7 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports = {
+  seedUsers,
   createUser,
   getAllUsers,
   getAllUsersByCompany,

@@ -1,16 +1,61 @@
 // controllers/attendancesController.js
 const { Op } = require("sequelize");
-const Attendances = require("../models/Attendance");
+const { Attendances } = require("../db/Index");
+
+// Seed attendances
+const seedAttendance = async (req, res) => {
+  try {
+    const attendances = await Attendances.bulkCreate([
+      {
+        date: "2024-04-22",
+        clock_out: "18:00:00",
+        user_id: 1,
+        company_id: 1,
+        attendance_type_id: 1,
+      },
+      {
+        date: "2024-04-23",
+        clock_out: "18:00:00",
+        user_id: 1,
+        company_id: 1,
+        attendance_type_id: 1,
+      },
+      {
+        date: "2024-04-24",
+        clock_out: "18:00:00",
+        user_id: 1,
+        company_id: 1,
+        attendance_type_id: 1,
+      },
+      {
+        date: "2024-04-25",
+        clock_out: "18:00:00",
+        user_id: 1,
+        company_id: 1,
+        attendance_type_id: 1,
+      },
+    ]);
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "seed successful", data: attendances });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in creating attendance",
+      data: error.message,
+    });
+  }
+};
 
 // Create a new attendance
 const createAttendance = async (req, res) => {
   try {
     const newAttendance = await Attendances.create(req.body);
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendance created", data: newAttendance });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendance created", data: newAttendance });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -24,11 +69,10 @@ const createAttendance = async (req, res) => {
 const getAllAttendance = async (req, res) => {
   try {
     const attendances = await Attendances.findAll({});
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendances returned", data: attendances });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendances returned", data: attendances });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -46,11 +90,10 @@ const getAllAttendancesByCompany = async (req, res) => {
         company_id: req.body.company_id,
       },
     });
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendances returned", data: attendances });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendances returned", data: attendances });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -71,11 +114,10 @@ const getAllAttendancesByCompanyDate = async (req, res) => {
         company_id: req.body.company_id,
       },
     });
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendances returned", data: attendances });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendances returned", data: attendances });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -94,13 +136,10 @@ const getAllAttendancesByUserIdCompany = async (req, res) => {
         company_id: req.body.company_id,
       },
     });
-    if (res.ok && attendances) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendances found", data: attendances });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "attendances not found" });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendances found", data: attendances });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -114,13 +153,10 @@ const getAllAttendancesByUserIdCompany = async (req, res) => {
 const getAttendanceById = async (req, res) => {
   try {
     const attendance = await Attendances.findByPk(req.body.id);
-    if (res.ok && attendance) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendance found", data: attendance });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "attendance not found" });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendance found", data: attendance });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -141,13 +177,10 @@ const getAttendanceByUserIdDate = async (req, res) => {
         },
       },
     });
-    if (res.ok && attendances) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendances found", data: attendances });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "attendances not found" });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendances found", data: attendances });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -166,13 +199,9 @@ const updateAttendance = async (req, res) => {
       },
     });
 
-    if (res.ok && attendance) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendance updated", data: attendance });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "attendance not found" });
-    }
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendance updated", data: attendance });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -190,13 +219,10 @@ const deleteAttendance = async (req, res) => {
         id: req.body.id,
       },
     });
-    if (res.ok && attendance) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "attendance deleted", data: attendance });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "attendance not found" });
-    }
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendance deleted", data: attendance });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -207,6 +233,7 @@ const deleteAttendance = async (req, res) => {
 };
 
 module.exports = {
+  seedAttendance,
   createAttendance,
   getAllAttendance,
   getAllAttendancesByCompany,

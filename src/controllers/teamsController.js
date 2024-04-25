@@ -1,15 +1,12 @@
 // controllers/teamsController.js
-const Teams = require("../models/Teams");
+const { Teams } = require("../db/Index");
 
 // Create a new team
 const createTeam = async (req, res) => {
   try {
     const newTeam = await Teams.create(req.body);
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "team created", data: newTeam });
-    }
+
+    res.status(200).json({ status: "ok", msg: "team created", data: newTeam });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -23,11 +20,8 @@ const createTeam = async (req, res) => {
 const getAllTeams = async (req, res) => {
   try {
     const teams = await Teams.findAll({});
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "teams returned", data: teams });
-    }
+
+    res.status(200).json({ status: "ok", msg: "teams returned", data: teams });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -45,11 +39,8 @@ const getAllTeamsByCompany = async (req, res) => {
         company_id: req.body.company_id,
       },
     });
-    if (res.ok) {
-      res
-        .status(200)
-        .json({ status: "ok", msg: "teams returned", data: teams });
-    }
+
+    res.status(200).json({ status: "ok", msg: "teams returned", data: teams });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -63,11 +54,8 @@ const getAllTeamsByCompany = async (req, res) => {
 const getTeamById = async (req, res) => {
   try {
     const team = await Teams.findByPk(req.body.id);
-    if (res.ok && team) {
-      res.status(200).json({ status: "ok", msg: "team found", data: team });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "team not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "team found", data: team });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -86,11 +74,8 @@ const getTeamByName = async (req, res) => {
         company_id: req.body.company_id,
       },
     });
-    if (res.ok && team) {
-      res.status(200).json({ status: "ok", msg: "team found", data: team });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "team not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "team found", data: team });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -109,11 +94,7 @@ const updateTeam = async (req, res) => {
       },
     });
 
-    if (res.ok && team) {
-      res.status(200).json({ status: "ok", msg: "team updated", data: team });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "team not found" });
-    }
+    res.status(200).json({ status: "ok", msg: "team updated", data: team });
   } catch (error) {
     res.status(500).json({
       status: "error",
@@ -131,11 +112,8 @@ const deleteTeam = async (req, res) => {
         id: req.body.id,
       },
     });
-    if (res.ok && team) {
-      res.status(200).json({ status: "ok", msg: "team deleted", data: team });
-    } else if (res.ok) {
-      res.status(404).json({ status: "ok", msg: "team not found" });
-    }
+
+    res.status(200).json({ status: "ok", msg: "team deleted", data: team });
   } catch (error) {
     res.status(500).json({
       status: "error",

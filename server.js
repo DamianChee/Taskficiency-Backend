@@ -6,6 +6,12 @@ const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
+const attendances = require("./src/routers/AttendancesRouter");
+const attendanceTypes = require("./src/routers/AttendanceTypesRouter");
+const companies = require("./src/routers/CompaniesRouter");
+
+const users = require("./src/routers/UsersRouter");
+
 const limiter = rateLimit({
   windowMs: 1000,
   max: 100,
@@ -23,6 +29,12 @@ app.use(express.urlencoded({ extended: false }));
 
 const PORT = process.env.PORT || 5001;
 connectDB();
+
+app.use("", attendances);
+app.use("", attendanceTypes);
+app.use("", companies);
+
+app.use("", users);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
