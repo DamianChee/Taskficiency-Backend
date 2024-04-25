@@ -232,6 +232,108 @@ const deleteAttendance = async (req, res) => {
   }
 };
 
+// Clock in via user id
+const clockIn = async (req, res) => {
+  try {
+    const attendance = await Attendances.create({
+      clock_out: "18:00:00",
+      user_id: req.body.user_id,
+      company_id: req.body.company_id,
+      attendance_type_id: 1,
+    });
+
+    res.status(200).json({ status: "ok", msg: "clocked in", data: attendance });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in creating attendance",
+      data: error.message,
+    });
+  }
+};
+
+// Clock in via user id
+const clockOut = async (req, res) => {
+  try {
+    const attendance = await Attendances.update(
+      {
+        clock_out: req.body.clock_out,
+        attendance_type_id: req.body.clock_out || null,
+      },
+      {
+        where: {
+          user_id: req.body.user_id,
+          date: req.body.date,
+        },
+      }
+    );
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "clocked out", data: attendance });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in updating attendance",
+      data: error.message,
+    });
+  }
+};
+
+// Clock in via user id
+const OTIn = async (req, res) => {
+  try {
+    const attendance = await Attendances.update(
+      {
+        OT_clock_in: req.body.OT_clock_in,
+      },
+      {
+        where: {
+          user_id: req.body.user_id,
+          date: req.body.date,
+        },
+      }
+    );
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "OT clocked in", data: attendance });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in creating attendance",
+      data: error.message,
+    });
+  }
+};
+
+// Clock in via user id
+const OTOut = async (req, res) => {
+  try {
+    const attendance = await Attendances.update(
+      {
+        OT_clock_out: req.body.OT_clock_out,
+      },
+      {
+        where: {
+          user_id: req.body.user_id,
+          date: req.body.date,
+        },
+      }
+    );
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "OT clocked out", data: attendance });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in updating attendance",
+      data: error.message,
+    });
+  }
+};
+
 module.exports = {
   seedAttendance,
   createAttendance,
@@ -243,4 +345,8 @@ module.exports = {
   getAttendanceByUserIdDate,
   updateAttendance,
   deleteAttendance,
+  clockIn,
+  clockOut,
+  OTIn,
+  OTOut,
 };

@@ -71,7 +71,6 @@ const getTeamByName = async (req, res) => {
     const team = await Teams.findOne({
       where: {
         name: req.body.name,
-        company_id: req.body.company_id,
       },
     });
 

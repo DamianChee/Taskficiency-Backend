@@ -9,6 +9,10 @@ const {
   getAllAttendancesByUserIdCompany,
   updateAttendance,
   deleteAttendance,
+  clockIn,
+  clockOut,
+  OTIn,
+  OTOut,
 } = require("../controllers/AttendancesController");
 const router = express.Router();
 
@@ -22,5 +26,9 @@ router.put("/attendances/id", getAttendanceById);
 router.put("/attendances/userdate", getAttendanceById);
 router.patch("/attendances/id", updateAttendance);
 router.delete("/attendances/id", deleteAttendance);
+router.put("/attendances/clockin", clockIn);
+router.put("/attendances/clockout", clockOut);
+router.put("/attendances/otin", OTIn);
+router.put("/attendances/otout", OTOut);
 
 module.exports = router;
