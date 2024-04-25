@@ -126,6 +126,7 @@ const deleteRole = async (req, res) => {
 };
 
 module.exports = {
+  seedRoles,
   createRole,
   getAllRoles,
   getRoleById,

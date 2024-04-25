@@ -9,7 +9,8 @@ const rateLimit = require("express-rate-limit");
 const attendances = require("./src/routers/AttendancesRouter");
 const attendanceTypes = require("./src/routers/AttendanceTypesRouter");
 const companies = require("./src/routers/CompaniesRouter");
-
+const roles = require("./src/routers/RolesRouter");
+const teams = require("./src/routers/TeamsRouter");
 const users = require("./src/routers/UsersRouter");
 
 const limiter = rateLimit({
@@ -33,7 +34,8 @@ connectDB();
 app.use("", attendances);
 app.use("", attendanceTypes);
 app.use("", companies);
-
+app.use("", roles);
+app.use("", teams);
 app.use("", users);
 
 app.listen(PORT, () => {

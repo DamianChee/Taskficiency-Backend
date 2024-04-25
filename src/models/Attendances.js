@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     clock_in: {
       type: DataTypes.TIME,
-      allowNull: false,
+      allowNull: true,
       defaultValue: DataTypes.NOW,
     },
     clock_out: {

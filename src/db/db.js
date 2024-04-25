@@ -8,7 +8,7 @@ const connectDB = async () => {
     console.log(`Database Connected`);
 
     // Turned off logging because it was annoying me
-    await sequelize.sync({ force: true, logging: false });
+    await sequelize.sync({ force: false, logging: false });
     console.log("Database & tables created!");
   } catch (error) {
     console.error(error.message);
