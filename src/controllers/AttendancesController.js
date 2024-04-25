@@ -258,7 +258,6 @@ const clockOut = async (req, res) => {
     const attendance = await Attendances.update(
       {
         clock_out: req.body.clock_out,
-        attendance_type_id: req.body.clock_out || null,
       },
       {
         where: {
