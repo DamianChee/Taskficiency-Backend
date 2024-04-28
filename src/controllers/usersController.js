@@ -1,4 +1,4 @@
-// controllers/usersController.js
+// usersController.js
 const { Users } = require("../db/Index");
 
 // Seed users

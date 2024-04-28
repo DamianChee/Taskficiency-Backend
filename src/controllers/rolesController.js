@@ -1,4 +1,4 @@
-// controllers/rolesController.js
+// rolesController.js
 const { Roles } = require("../db/Index");
 
 // Seed roles

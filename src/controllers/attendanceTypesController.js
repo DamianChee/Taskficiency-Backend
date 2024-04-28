@@ -1,4 +1,4 @@
-// controllers/attendanceTypeController.js
+// attendanceTypeController.js
 const { AttendanceTypes } = require("../db/Index");
 
 // Seed attendance types

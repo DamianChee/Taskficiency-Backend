@@ -1,4 +1,4 @@
-// controllers/teamsController.js
+// teamsController.js
 const { Teams } = require("../db/Index");
 
 // Create a new team

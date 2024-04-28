@@ -1,4 +1,4 @@
-// controllers/companiesController.js
+// companiesController.js
 const { Companies } = require("../db/Index");
 
 // Seed companies

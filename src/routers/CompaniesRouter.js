@@ -1,3 +1,4 @@
+// companiesRouter.js
 const express = require("express");
 const {
   createCompany,

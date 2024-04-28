@@ -1,3 +1,4 @@
+// attendancesRouter.js
 const express = require("express");
 const {
   seedAttendance,
@@ -13,7 +14,7 @@ const {
   clockOut,
   OTIn,
   OTOut,
-} = require("../controllers/AttendancesController");
+} = require("../controllers/attendancesController");
 const router = express.Router();
 
 router.get("/attendances/seed", seedAttendance);

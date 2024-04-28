@@ -1,4 +1,4 @@
-// controllers/attendancesController.js
+// attendancesController.js
 const { Op } = require("sequelize");
 const { Attendances } = require("../db/Index");
 
