@@ -63,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.JSONB,
       allowNull: true,
     },
-    reportId: {
+    report_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "ReportFormats",
