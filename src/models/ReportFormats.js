@@ -9,21 +9,21 @@
 // if column 1 is updated, copy into column 2 first before updating
 
 /**
- * format = {
- *   columns: {
- *     {id: 1, column_name: id},
- *     {id: 2, column_name: task},
- *     {id: 3, column_name: manhours},
- *     {id: 4, column_name: completed},
- *     {id: 5, column_name: comments},
- *   },
- *   rows: {
- *     {id: 1, task: do A, manhours: 1.0, completed: false, comments: ""},
- *     {id: 2, task: do B, manhours: 2.0, completed: false, comments: ""},
- *     {id: 3, task: do C, manhours: 0.5, completed: false, comments: ""},
- *     {id: 4, task: do D, manhours: 1.5, completed: false, comments: ""},
- *     {id: 5, task: do E, manhours: 1.0, completed: false, comments: ""},
- *   }
+ * {
+ *   "columns": [
+ *     { "id": 1, "column_name": "id" },
+ *     { "id": 2, "column_name": "task" },
+ *     { "id": 3,"column_name": "manhours" },
+ *     { "id": 4,"column_name": "completed" },
+ *     { "id": 5,"column_name": "comments" }
+ *   ],
+ *   "rows": [
+ *     { "id": 1,"task": "do A","manhours": 1,"completed": false, "comments": "" },
+ *     { "id": 2,"task": "do B","manhours": 2,"completed": false, "comments": "" },
+ *     { "id": 3,"task": "do C","manhours": 0.5,"completed": false, "comments": "" },
+ *     { "id": 4,"task": "do D","manhours": 1.5,"completed": false, "comments": "" },
+ *     { "id": 5,"task": "do E","manhours": 1,"completed": false, "comments": "" }
+ *   ]
  * }
  *
  * reports = [
