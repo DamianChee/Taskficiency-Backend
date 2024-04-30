@@ -152,6 +152,83 @@ const deleteUser = async (req, res) => {
   }
 };
 
+const register = async (req, res) => {
+  try {
+    const auth = await UsersModel.findOne({ email: req.body.email });
+    if (auth)
+      return res.status(400).json({ status: "error", msg: "duplicate email" });
+    const password = await bcrypt.hash(req.body.password, 12);
+    const data = await UsersModel.create({
+      name: req.body.name,
+      username: req.body.username,
+      password: password,
+      company_id: req.body.company_id,
+    });
+
+    res.json({ status: "ok", msg: "user created", data: data });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "invalid registration" });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const auth = await UsersModel.findOne({ email: req.body.username });
+    if (!auth)
+      return res.status(400).json({ status: "error", msg: "username failure" });
+
+    const result = await bcrypt.compare(req.body.password, auth.password);
+    if (!result) {
+      console.error("email or password incorrect");
+      return res.status(401).json({ status: "error", msg: "password failure" });
+    }
+
+    const claims = {
+      id: auth.id,
+      company_id: auth.company_id,
+      role_id: auth.role_id,
+    };
+
+    const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
+      expiresIn: "20m",
+      jwtid: uuidv4(),
+    });
+
+    const refresh = jwt.sign(claims, process.env.REFRESH_SECRET, {
+      expiresIn: "30d",
+      jwtid: uuidv4(),
+    });
+
+    res.json({ status: "ok", msg: "logged in", data: auth, access, refresh });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "error not authorized" });
+  }
+};
+
+const refresh = async (req, res) => {
+  try {
+    const decoded = jwt.verify(req.body.refresh, process.env.REFRESH_SECRET);
+
+    const claims = {
+      id: decoded.id,
+      company_id: decoded.company_id,
+      role_id: decoded.role_id,
+    };
+
+    const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
+      expiresIn: "20m",
+      jwtid: uuidv4(),
+    });
+
+    res.json({ access });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ status: "error", msg: "not authorized" });
+  }
+};
+
 module.exports = {
   seedUsers,
   createUser,
@@ -161,4 +238,7 @@ module.exports = {
   getUserByCompany,
   updateUser,
   deleteUser,
+  register,
+  login,
+  refresh,
 };
