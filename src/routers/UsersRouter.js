@@ -9,6 +9,9 @@ const {
   updateUser,
   deleteUser,
   seedUsers,
+  register,
+  login,
+  refresh,
 } = require("../controllers/usersController");
 const router = express.Router();
 
@@ -20,5 +23,9 @@ router.post("/users/id", getUserById);
 router.post("/users/company", getUserByCompany);
 router.patch("/users/id", updateUser);
 router.delete("/users/id", deleteUser);
+
+router.put("users/register", register);
+router.post("/users/login", login);
+router.post("/users/refresh", refresh);
 
 module.exports = router;
