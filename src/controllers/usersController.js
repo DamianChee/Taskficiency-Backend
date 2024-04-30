@@ -154,11 +154,11 @@ const deleteUser = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const auth = await UsersModel.findOne({ email: req.body.email });
+    const auth = await Users.findAll({ username: req.body.username });
     if (auth)
-      return res.status(400).json({ status: "error", msg: "duplicate email" });
+      return res.status(400).json({ status: "error", msg: "username used" });
     const password = await bcrypt.hash(req.body.password, 12);
-    const data = await UsersModel.create({
+    const data = await Users.create({
       name: req.body.name,
       username: req.body.username,
       password: password,
@@ -174,7 +174,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const auth = await UsersModel.findOne({ email: req.body.username });
+    const auth = await Users.findAll({ username: req.body.username });
     if (!auth)
       return res.status(400).json({ status: "error", msg: "username failure" });
 
