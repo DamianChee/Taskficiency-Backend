@@ -61,8 +61,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-      default: `New Report (${id})`,
+      allowNull: true,
+      default: () => `New Format (${this.id})`,
     },
     format: {
       type: DataTypes.JSONB,
@@ -74,6 +74,7 @@ module.exports = (sequelize, DataTypes) => {
         model: "Companies", // This is a reference to another model
         key: "id",
       },
+      default: 1,
     },
     created_by: {
       type: DataTypes.INTEGER,
@@ -81,6 +82,7 @@ module.exports = (sequelize, DataTypes) => {
         model: "Users", // This is a reference to another model
         key: "id",
       },
+      default: 5,
     },
   });
 
