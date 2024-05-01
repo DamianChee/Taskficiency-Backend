@@ -1,6 +1,6 @@
 const { Client } = require("pg");
 
-const { sequelize, Company } = require("./Index");
+const { sequelize } = require("./Index");
 
 const connectDB = async () => {
   try {
