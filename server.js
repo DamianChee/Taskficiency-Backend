@@ -6,12 +6,14 @@ const cors = require("cors");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
-const attendances = require("./src/routers/AttendancesRouter");
-const attendanceTypes = require("./src/routers/AttendanceTypesRouter");
-const companies = require("./src/routers/CompaniesRouter");
-const roles = require("./src/routers/RolesRouter");
-const teams = require("./src/routers/TeamsRouter");
-const users = require("./src/routers/UsersRouter");
+const attendances = require("./src/routers/attendancesRouter");
+const attendanceTypes = require("./src/routers/attendanceTypesRouter");
+const companies = require("./src/routers/companiesRouter");
+const roles = require("./src/routers/rolesRouter");
+const teams = require("./src/routers/teamsRouter");
+const users = require("./src/routers/usersRouter");
+const formats = require("./src/routers/reportFormatsRouter");
+const reports = require("./src/routers/reportsRouter");
 
 const limiter = rateLimit({
   windowMs: 1000,
@@ -37,6 +39,8 @@ app.use("", companies);
 app.use("", roles);
 app.use("", teams);
 app.use("", users);
+app.use("", formats);
+app.use("", reports);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
