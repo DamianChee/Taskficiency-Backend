@@ -1,5 +1,8 @@
 // usersController.js
 const { Users } = require("../db/Index");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const { v4: uuidv4 } = require("uuid");
 
 // Seed users
 const seedUsers = async (req, res) => {
@@ -154,18 +157,22 @@ const deleteUser = async (req, res) => {
 
 const register = async (req, res) => {
   try {
-    const auth = await Users.findAll({ username: req.body.username });
-    if (auth)
+    const auth = await Users.findAll({
+      where: {
+        username: req.body.username,
+      },
+    });
+    if (auth.length)
       return res.status(400).json({ status: "error", msg: "username used" });
     const password = await bcrypt.hash(req.body.password, 12);
-    const data = await Users.create({
+    const user = await Users.create({
       name: req.body.name,
       username: req.body.username,
       password: password,
       company_id: req.body.company_id,
     });
 
-    res.json({ status: "ok", msg: "user created", data: data });
+    res.json({ status: "ok", msg: "user created", data: user });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ status: "error", msg: "invalid registration" });
@@ -174,20 +181,31 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const auth = await Users.findAll({ username: req.body.username });
+    const auth = await Users.findOne({
+      where: {
+        username: req.body.username,
+      },
+    });
+    console.log(auth);
     if (!auth)
-      return res.status(400).json({ status: "error", msg: "username failure" });
+      return res
+        .status(400)
+        .json({ status: "error", msg: "Username/Password invalid" });
 
-    const result = await bcrypt.compare(req.body.password, auth.password);
+    const result = await bcrypt.compare(
+      req.body.password,
+      auth.dataValues.password
+    );
     if (!result) {
       console.error("email or password incorrect");
-      return res.status(401).json({ status: "error", msg: "password failure" });
+      return res
+        .status(401)
+        .json({ status: "error", msg: "Username/Password invalid" });
     }
 
     const claims = {
       id: auth.id,
       company_id: auth.company_id,
-      role_id: auth.role_id,
     };
 
     const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
