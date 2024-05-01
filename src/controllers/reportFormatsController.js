@@ -34,7 +34,7 @@ const createFormat = async (req, res) => {
     res.status(500).json({
       status: "error",
       msg: "error in creating format",
-      data: error.message,
+      data: error,
     });
   }
 };
