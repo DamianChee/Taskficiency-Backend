@@ -59,29 +59,40 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      default: () => `New Report (${this.id})`,
+    },
     reports: {
       type: DataTypes.JSONB,
-      allowNull: true,
+      allowNull: false,
     },
     report_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "ReportFormats",
         key: "id",
       },
+      default: 0,
     },
     company_id: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "Companies", // This is a reference to another model
         key: "id",
       },
+      default: 1,
     },
     created_by: {
       type: DataTypes.INTEGER,
+      allowNull: true,
       references: {
         model: "Users", // This is a reference to another model
         key: "id",
+        default: 5,
       },
     },
   });
