@@ -4,7 +4,7 @@ const { Reports } = require("../db/Index");
 // Seed report formats
 const seedReports = async (req, res) => {
   try {
-    const reports = await ReportFormats.bulkCreate([
+    const reports = await Reports.bulkCreate([
       { report: [], reportId: 1, company_id: 1, created_by: 1 },
       { report: [], reportId: 1, company_id: 1, created_by: 2 },
       { report: [], reportId: 1, company_id: 1, created_by: 1 },
