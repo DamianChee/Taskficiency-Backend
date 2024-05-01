@@ -24,7 +24,7 @@ router.post("/users/company", getUserByCompany);
 router.patch("/users/id", updateUser);
 router.delete("/users/id", deleteUser);
 
-router.put("users/register", register);
+router.put("/users/register", register);
 router.post("/users/login", login);
 router.post("/users/refresh", refresh);
 
