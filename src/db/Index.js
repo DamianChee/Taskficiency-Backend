@@ -24,7 +24,7 @@ const AttendanceTypes = require("../models/AttendanceTypes")(
 );
 const Roles = require("../models/Roles")(sequelize, Sequelize.DataTypes);
 
-// Following Table hierarchy Company -> User -> Team & Attendance
+// Following Table hierarchy Company -> User -> Team & Attendance -> Formats & Reports
 const Companies = require("../models/Companies")(
   sequelize,
   Sequelize.DataTypes
@@ -35,6 +35,11 @@ const Attendances = require("../models/Attendances")(
   sequelize,
   Sequelize.DataTypes
 );
+const ReportFormats = require("../models/ReportFormats")(
+  sequelize,
+  Sequelize.DataTypes
+);
+const Reports = require("../models/Reports")(sequelize, Sequelize.DataTypes);
 
 module.exports = {
   sequelize,
@@ -44,4 +49,6 @@ module.exports = {
   Roles,
   Teams,
   Users,
+  ReportFormats,
+  Reports,
 };
