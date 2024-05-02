@@ -25,7 +25,12 @@ const seedReportFormats = async (req, res) => {
 // Create a new format
 const createFormat = async (req, res) => {
   try {
-    const newFormat = await ReportFormats.create(req.body);
+    const newFormat = await ReportFormats.create({
+      name: req.body.name,
+      format: req.body.format,
+      company_id: req.body.company_id,
+      created_by: req.body.user_id,
+    });
 
     res
       .status(200)
@@ -33,8 +38,8 @@ const createFormat = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: "error",
-      msg: "error in creating format",
-      data: error,
+      msg: error,
+      data: error.message,
     });
   }
 };
