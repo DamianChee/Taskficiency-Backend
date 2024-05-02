@@ -68,7 +68,13 @@ const createAttendance = async (req, res) => {
 // Get all attendances
 const getAllAttendance = async (req, res) => {
   try {
-    const attendances = await Attendances.findAll({});
+    const attendances = await Attendances.findAll({
+      order: [
+        ["company_id", "ASC"],
+        ["date", "ASC"],
+        ["user_id", "ASC"],
+      ],
+    });
 
     res
       .status(200)
@@ -89,6 +95,10 @@ const getAllAttendancesByCompany = async (req, res) => {
       where: {
         company_id: req.body.company_id,
       },
+      order: [
+        ["date", "ASC"],
+        ["user_id", "ASC"],
+      ],
     });
 
     res
@@ -135,6 +145,10 @@ const getAllAttendancesByUserIdCompany = async (req, res) => {
         user_id: req.body.user_id,
         company_id: req.body.company_id,
       },
+      order: [
+        ["date", "ASC"],
+        ["user_id", "ASC"],
+      ],
     });
 
     res
@@ -173,6 +187,7 @@ const getAttendanceByUserId = async (req, res) => {
       where: {
         user_id: req.body.user_id,
       },
+      order: [["date", "ASC"]],
     });
 
     res
@@ -190,7 +205,7 @@ const getAttendanceByUserId = async (req, res) => {
 // Get attendances by user id and date
 const getAttendanceByUserIdDate = async (req, res) => {
   try {
-    const attendances = await Attendances.findAll({
+    const attendances = await Attendances.findOne({
       where: {
         user_id: req.body.user_id,
         date: {

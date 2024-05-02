@@ -14,6 +14,7 @@ const seedUsers = async (req, res) => {
         password:
           "$2b$12$VnAjou7tpDKqcM6SSq6wo.aApOjRj6VSdWQG41OuTiCmZocYCO2Yu",
         company_id: 1,
+        role_id: 1,
       },
       {
         name: "Alvin",
@@ -21,6 +22,7 @@ const seedUsers = async (req, res) => {
         password:
           "$2b$12$GnbkbSl4IyQ6YdLZqzFNjuqNlcZSPVU14Pc0V.Ul2iz09FiAy//Ay",
         company_id: 1,
+        role_id: 2,
       },
       {
         name: "Danza",
@@ -28,6 +30,7 @@ const seedUsers = async (req, res) => {
         password:
           "$2b$12$SVQaN44QhBRI7oaHPNwTSeJff45idKtGtK6vJNsCEEwgj3AGI39y.",
         company_id: 1,
+        role_id: 4,
       },
       {
         name: "Bryan",
@@ -35,6 +38,7 @@ const seedUsers = async (req, res) => {
         password:
           "$2b$12$ENG2ZoHOfugotFFGkmwpT.AFLPsNz532X9xue.ChyCgrLQt2i9lj.",
         company_id: 1,
+        role_id: 4,
       },
       {
         name: "Albert",
@@ -42,6 +46,7 @@ const seedUsers = async (req, res) => {
         password:
           "$2b$12$zroCijU2rzlrg0zlUZILe.u/mmUJCiFFYdI52mqP/2p3Zy1Konh4S",
         company_id: 1,
+        role_id: 4,
       },
     ]);
 
@@ -91,6 +96,7 @@ const getAllUsersByCompany = async (req, res) => {
       where: {
         company_id: req.body.company_id,
       },
+      order: [["name", "ASC"]],
     });
 
     res.status(200).json({ status: "ok", msg: "users found", data: users });

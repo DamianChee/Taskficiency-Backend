@@ -15,23 +15,26 @@ const {
   OTIn,
   OTOut,
   getAttendanceByUserId,
+  getAttendanceByUserIdDate,
 } = require("../controllers/attendancesController");
+const { authMiddleware } = require("../middleware/auth");
 const router = express.Router();
 
 router.get("/attendances/seed", seedAttendance);
-router.post("/attendances/create", createAttendance);
+router.post("/attendances/create", authMiddleware, createAttendance);
 router.get("/attendances/all", getAllAttendance);
 router.put("/attendances/all/company", getAllAttendancesByCompany);
 router.put("/attendances/all/companydate", getAllAttendancesByCompanyDate);
 router.put("/attendances/all/usercompany", getAllAttendancesByUserIdCompany);
 router.put("/attendances/id", getAttendanceById);
 router.post("/attendances/user", getAttendanceByUserId);
-router.put("/attendances/userdate", getAttendanceById);
-router.patch("/attendances/id", updateAttendance);
-router.delete("/attendances/id", deleteAttendance);
-router.put("/attendances/clockin", clockIn);
-router.put("/attendances/clockout", clockOut);
-router.put("/attendances/otin", OTIn);
-router.put("/attendances/otout", OTOut);
+router.put("/attendances/userdate", getAttendanceByUserIdDate);
+router.patch("/attendances/id", authMiddleware, updateAttendance);
+router.delete("/attendances/id", authMiddleware, deleteAttendance);
+
+router.put("/attendances/clockin", authMiddleware, clockIn);
+router.put("/attendances/clockout", authMiddleware, clockOut);
+router.put("/attendances/otin", authMiddleware, OTIn);
+router.put("/attendances/otout", authMiddleware, OTOut);
 
 module.exports = router;
