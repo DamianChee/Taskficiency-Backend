@@ -14,6 +14,7 @@ const {
   clockOut,
   OTIn,
   OTOut,
+  getAttendanceByUserId,
 } = require("../controllers/attendancesController");
 const router = express.Router();
 
@@ -24,6 +25,7 @@ router.put("/attendances/all/company", getAllAttendancesByCompany);
 router.put("/attendances/all/companydate", getAllAttendancesByCompanyDate);
 router.put("/attendances/all/usercompany", getAllAttendancesByUserIdCompany);
 router.put("/attendances/id", getAttendanceById);
+router.post("/attendances/user", getAttendanceByUserId);
 router.put("/attendances/userdate", getAttendanceById);
 router.patch("/attendances/id", updateAttendance);
 router.delete("/attendances/id", deleteAttendance);
