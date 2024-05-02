@@ -62,7 +62,7 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: true,
-      default: () => `New Report (${this.id})`,
+      defaultValue: () => `New Report`,
     },
     reports: {
       type: DataTypes.JSONB,
@@ -75,7 +75,6 @@ module.exports = (sequelize, DataTypes) => {
         model: "ReportFormats",
         key: "id",
       },
-      default: 0,
     },
     company_id: {
       type: DataTypes.INTEGER,
@@ -84,7 +83,7 @@ module.exports = (sequelize, DataTypes) => {
         model: "Companies", // This is a reference to another model
         key: "id",
       },
-      default: 1,
+      defaultValue: 1,
     },
     created_by: {
       type: DataTypes.INTEGER,
@@ -92,8 +91,8 @@ module.exports = (sequelize, DataTypes) => {
       references: {
         model: "Users", // This is a reference to another model
         key: "id",
-        default: 5,
       },
+      defaultValue: 1,
     },
   });
 
