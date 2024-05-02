@@ -8,18 +8,39 @@ const { v4: uuidv4 } = require("uuid");
 const seedUsers = async (req, res) => {
   try {
     const users = await Users.bulkCreate([
-      { name: "Danza", username: "danza", password: "password", company_id: 1 },
+      {
+        name: "Damian",
+        username: "admin",
+        password:
+          "$2b$12$VnAjou7tpDKqcM6SSq6wo.aApOjRj6VSdWQG41OuTiCmZocYCO2Yu",
+        company_id: 1,
+      },
+      {
+        name: "Alvin",
+        username: "alvin",
+        password:
+          "$2b$12$GnbkbSl4IyQ6YdLZqzFNjuqNlcZSPVU14Pc0V.Ul2iz09FiAy//Ay",
+        company_id: 1,
+      },
+      {
+        name: "Danza",
+        username: "danza",
+        password:
+          "$2b$12$SVQaN44QhBRI7oaHPNwTSeJff45idKtGtK6vJNsCEEwgj3AGI39y.",
+        company_id: 1,
+      },
+      {
+        name: "Bryan",
+        username: "bryan",
+        password:
+          "$2b$12$ENG2ZoHOfugotFFGkmwpT.AFLPsNz532X9xue.ChyCgrLQt2i9lj.",
+        company_id: 1,
+      },
       {
         name: "Albert",
         username: "albert",
-        password: "password",
-        company_id: 1,
-      },
-      { name: "Bryan", username: "bryan", password: "password", company_id: 1 },
-      {
-        name: "Damian",
-        username: "damian",
-        password: "password",
+        password:
+          "$2b$12$zroCijU2rzlrg0zlUZILe.u/mmUJCiFFYdI52mqP/2p3Zy1Konh4S",
         company_id: 1,
       },
     ]);
@@ -52,7 +73,7 @@ const createUser = async (req, res) => {
 // Get all users
 const getAllUsers = async (req, res) => {
   try {
-    const users = await Users.findAll({});
+    const users = await Users.findAll({ order: [["name", "ASC"]] });
 
     res.status(200).json({ status: "ok", msg: "users returned", data: users });
   } catch (error) {
@@ -130,7 +151,7 @@ const updateUser = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: "error",
-      msg: "error in updating user",
+      msg: error,
       data: error.message,
     });
   }
