@@ -33,7 +33,7 @@ const createReport = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       status: "error",
-      msg: "error in creating report",
+      msg: error,
       data: error.message,
     });
   }
