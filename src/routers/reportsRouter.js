@@ -12,13 +12,13 @@ const {
 } = require("../controllers/reportsController");
 const router = express.Router();
 
-router.get("/report/seed", seedReports);
-router.put("/report/create", createReport);
-router.get("/report/all", getAllReports);
-router.post("/report/all/company", getAllReportsByCompany);
-router.post("/report/all/formatcompany", getAllReportsFormatCompany);
-router.post("/report/id", getReportById);
-router.patch("/report/id", updateReport);
-router.delete("/report/id", deleteReport);
+router.get("/reports/seed", seedReports);
+router.put("/reports/create", createReport);
+router.get("/reports/all", getAllReports);
+router.post("/reports/all/company", getAllReportsByCompany);
+router.post("/reports/all/formatcompany", getAllReportsFormatCompany);
+router.post("/reports/id", getReportById);
+router.patch("/reports/id", updateReport);
+router.delete("/reports/id", deleteReport);
 
 module.exports = router;
