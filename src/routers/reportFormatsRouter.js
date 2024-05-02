@@ -12,13 +12,13 @@ const {
 } = require("../controllers/reportFormatsController");
 const router = express.Router();
 
-router.get("/format/seed", seedReportFormats);
-router.put("/format/create", createFormat);
-router.get("/format/all", getAllFormats);
-router.post("/format/all/company", getAllFormatsByCompany);
-router.post("/format/id", getFormatById);
-router.post("/format/name", getFormatByName);
-router.patch("/format/id", updateFormat);
-router.delete("/format/id", deleteFormat);
+router.get("/formats/seed", seedReportFormats);
+router.put("/formats/create", createFormat);
+router.get("/formats/all", getAllFormats);
+router.post("/formats/all/company", getAllFormatsByCompany);
+router.post("/formats/id", getFormatById);
+router.post("/formats/name", getFormatByName);
+router.patch("/formats/id", updateFormat);
+router.delete("/formats/id", deleteFormat);
 
 module.exports = router;
