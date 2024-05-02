@@ -167,6 +167,27 @@ const getAttendanceById = async (req, res) => {
 };
 
 // Get attendances by user id
+const getAttendanceByUserId = async (req, res) => {
+  try {
+    const attendances = await Attendances.findAll({
+      where: {
+        user_id: req.body.user_id,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ status: "ok", msg: "attendances found", data: attendances });
+  } catch (error) {
+    res.status(500).json({
+      status: "error",
+      msg: "error in getting attendances",
+      data: error.message,
+    });
+  }
+};
+
+// Get attendances by user id and date
 const getAttendanceByUserIdDate = async (req, res) => {
   try {
     const attendances = await Attendances.findAll({
@@ -341,6 +362,7 @@ module.exports = {
   getAllAttendancesByCompanyDate,
   getAllAttendancesByUserIdCompany,
   getAttendanceById,
+  getAttendanceByUserId,
   getAttendanceByUserIdDate,
   updateAttendance,
   deleteAttendance,
