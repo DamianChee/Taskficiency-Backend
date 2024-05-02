@@ -41,7 +41,7 @@ const createRole = async (req, res) => {
 // Get all roles
 const getAllRoles = async (req, res) => {
   try {
-    const roles = await Roles.findAll({});
+    const roles = await Roles.findAll({ order: [["id", "ASC"]] });
 
     res.status(200).json({ status: "ok", msg: "roles returned", data: roles });
   } catch (error) {
