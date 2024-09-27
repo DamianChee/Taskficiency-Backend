@@ -24,6 +24,7 @@ const limiter = rateLimit({
 
 const app = express();
 
+app.options("*", cors()); // Include this line to allow preflight requests
 app.use(cors());
 app.use(helmet());
 app.use(limiter);
